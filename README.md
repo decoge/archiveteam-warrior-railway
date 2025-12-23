@@ -4,18 +4,6 @@ This repository deploys a fully functional **ArchiveTeam Warrior** instance on [
 
 The Warrior helps preserve websites and online content by participating in ArchiveTeam's distributed archiving projects.
 
-## Deployment (One-Click)
-
-[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/railway.app/template?template=https%3A%2F%2Fgithub.com%2Fdecoge%2Farchiveteam-warrior-railway)
-
-Or manually:
-
-1. Create a new project on Railway
-2. Add a new service → **Deploy from Docker Image**
-3. Use this image: `atdr.meo.ws/archiveteam/warrior-dockerfile`
-4. Set the port to **8001**
-5. Deploy!
-
 ## Configuration (Environment Variables)
 
 Add these variables in the Railway dashboard (Service → Variables):
