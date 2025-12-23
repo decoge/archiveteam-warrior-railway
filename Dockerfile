@@ -1,6 +1,6 @@
 FROM debian:bookworm-slim
 
-# Install base dependencies
+# Install all build and runtime dependencies
 RUN apt-get update && apt-get install -y \
     git \
     python3 \
@@ -21,32 +21,36 @@ RUN apt-get update && apt-get install -y \
     autoconf \
     && rm -rf /var/lib/apt/lists/*
 
+# Upgrade pip and setuptools to avoid install_layout errors
+RUN python3 -m pip install --upgrade pip setuptools wheel
+
 # Create warrior user
 RUN useradd -m -s /bin/bash warrior
 
 WORKDIR /home/warrior
 
-# Install seesaw-kit
+# Clone and install seesaw-kit (use pip for dependencies)
 RUN git clone https://github.com/ArchiveTeam/seesaw-kit.git && \
     cd seesaw-kit && \
+    pip3 install -r requirements.txt && \
     python3 setup.py install
 
 # Clone warrior projects
 RUN git clone https://github.com/ArchiveTeam/warrior-code2.git projects && \
     chown -R warrior:warrior projects
 
-# Build and install wget-at (modified wget with Lua)
+# Build wget-at locally (ArchiveTeam's modified wget with Lua support)
 RUN git clone https://github.com/ArchiveTeam/wget-lua.git && \
     cd wget-lua && \
     git checkout v1.20.3-at && \
     ./bootstrap && \
-    ./configure --with-ssl=gnutls && \
+    ./configure --with-ssl=gnutls --with-lib PSL && \
     make && \
     cp src/wget /usr/local/bin/wget-at && \
     cd .. && \
     rm -rf wget-lua
 
-# Add supporting scripts (must be in repo root)
+# Copy supporting scripts (add these files to your repo root!)
 COPY warrior.sh /home/warrior/
 COPY start.py /home/warrior/
 COPY env-to-json.sh /home/warrior/
