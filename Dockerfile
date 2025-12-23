@@ -1,5 +1,6 @@
 FROM debian:bookworm-slim
 
+# Install base dependencies
 RUN apt-get update && apt-get install -y \
     git \
     python3 \
@@ -9,23 +10,43 @@ RUN apt-get update && apt-get install -y \
     rsync \
     screen \
     curl \
+    lua5.1 \
+    liblua5.1-0-dev \
+    libgnutls28-dev \
+    flex \
+    gettext \
+    texinfo \
+    gperf \
+    automake \
+    autoconf \
     && rm -rf /var/lib/apt/lists/*
 
+# Create warrior user
 RUN useradd -m -s /bin/bash warrior
 
 WORKDIR /home/warrior
 
+# Install seesaw-kit
 RUN git clone https://github.com/ArchiveTeam/seesaw-kit.git && \
     cd seesaw-kit && \
     python3 setup.py install
 
+# Clone warrior projects
 RUN git clone https://github.com/ArchiveTeam/warrior-code2.git projects && \
     chown -R warrior:warrior projects
 
-# Pull wget-at from the official grab-base image
-COPY --from=atdr.meo.ws/archiveteam/grab-base:gnutls /usr/local/bin/wget-at /usr/local/bin/wget-at
+# Build and install wget-at (modified wget with Lua)
+RUN git clone https://github.com/ArchiveTeam/wget-lua.git && \
+    cd wget-lua && \
+    git checkout v1.20.3-at && \
+    ./bootstrap && \
+    ./configure --with-ssl=gnutls && \
+    make && \
+    cp src/wget /usr/local/bin/wget-at && \
+    cd .. && \
+    rm -rf wget-lua
 
-# Add the supporting scripts (these come from the official repo; create them in your GitHub repo)
+# Add supporting scripts (must be in repo root)
 COPY warrior.sh /home/warrior/
 COPY start.py /home/warrior/
 COPY env-to-json.sh /home/warrior/
