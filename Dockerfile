@@ -31,10 +31,11 @@ RUN useradd -m -s /bin/bash warrior
 
 WORKDIR /home/warrior
 
+# Install seesaw-kit correctly via pip
 RUN git clone https://github.com/ArchiveTeam/seesaw-kit.git && \
     cd seesaw-kit && \
     pip3 install -r requirements.txt --break-system-packages && \
-    cp -r seesaw /usr/local/lib/python3.11/site-packages/ && \
+    pip3 install . --break-system-packages && \
     cp run-pipeline3 run-warrior3 /usr/local/bin/ && \
     cd .. && \
     rm -rf seesaw-kit
