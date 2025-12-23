@@ -25,13 +25,15 @@ RUN apt-get update && apt-get install -y \
     libzstd-dev \
     && rm -rf /var/lib/apt/lists/*
 
-RUN python3 -m pip install --upgrade pip setuptools wheel --break-system-packages
+# Upgrade pip and install a compatible Tornado version first
+RUN python3 -m pip install --upgrade pip setuptools wheel --break-system-packages && \
+    pip3 install "tornado<5" --break-system-packages
 
 RUN useradd -m -s /bin/bash warrior
 
 WORKDIR /home/warrior
 
-# Install seesaw-kit correctly via pip
+# Install seesaw-kit (now compatible with old Tornado)
 RUN git clone https://github.com/ArchiveTeam/seesaw-kit.git && \
     cd seesaw-kit && \
     pip3 install -r requirements.txt --break-system-packages && \
