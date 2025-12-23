@@ -22,17 +22,15 @@ RUN git clone https://github.com/ArchiveTeam/seesaw-kit.git && \
 RUN git clone https://github.com/ArchiveTeam/warrior-code2.git projects && \
     chown -R warrior:warrior projects
 
-# Copy wget-at (modified wget) from base image equivalent
-# (This replicates the multi-stage build in the official Dockerfile)
+# Pull wget-at from the official grab-base image
 COPY --from=atdr.meo.ws/archiveteam/grab-base:gnutls /usr/local/bin/wget-at /usr/local/bin/wget-at
 
+# Add the supporting scripts (these come from the official repo; create them in your GitHub repo)
 COPY warrior.sh /home/warrior/
 COPY start.py /home/warrior/
 COPY env-to-json.sh /home/warrior/
 
 RUN chmod +x warrior.sh start.py env-to-json.sh
-
-VOLUME /home/warrior/data
 
 EXPOSE 8001
 
