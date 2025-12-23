@@ -6,6 +6,7 @@ The Warrior helps preserve websites and online content by participating in Archi
 
 ## Deployment
 [![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/archiveteam-warrior?referralCode=3m2LtM&utm_medium=integration&utm_source=template&utm_campaign=generic)
+
 Deploy on Railway with this [Template](https://railway.com/deploy/archiveteam-warrior?referralCode=3m2LtM&utm_medium=integration&utm_source=template&utm_campaign=generic)
 
 ## Configuration (Environment Variables)
