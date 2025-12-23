@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install -y \
     flex \
     gettext \
     libtool \
+    autopoint \
     texinfo \
     gperf \
     automake \
