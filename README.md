@@ -19,13 +19,6 @@ Add these variables in the Railway dashboard (Service → Variables):
 
 > **Tip**: Start with `SELECTED_PROJECT=auto` and `CONCURRENT_ITEMS=6` on the Hobby plan.
 
-## Persistent Storage (Recommended)
-
-Add a **Volume** in Railway:
-- Mount Path: `/home/warrior/data`
-
-This preserves completed WARC files and project state across redeployments.
-
 ## Access
 
 After deployment, your Warrior web interface will be available at:
