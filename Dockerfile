@@ -14,6 +14,7 @@ RUN apt-get update && apt-get install -y \
     libgnutls28-dev \
     flex \
     gettext \
+    libtool \
     texinfo \
     gperf \
     automake \
