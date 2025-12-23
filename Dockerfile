@@ -21,21 +21,22 @@ RUN apt-get update && apt-get install -y \
     autoconf \
     && rm -rf /var/lib/apt/lists/*
 
-# Allow pip system installs (required for Bookworm)
+# Upgrade pip and allow system installs
 RUN python3 -m pip install --upgrade pip setuptools wheel --break-system-packages
 
-# Create user
+# Create warrior user
 RUN useradd -m -s /bin/bash warrior
 
 WORKDIR /home/warrior
 
-# Install seesaw-kit
+# Install seesaw-kit dependencies and code (skip setup.py install – not needed)
 RUN git clone https://github.com/ArchiveTeam/seesaw-kit.git && \
     cd seesaw-kit && \
     pip3 install -r requirements.txt --break-system-packages && \
-    python3 setup.py install --break-system-packages
+    cp -r seesaw /usr/local/lib/python3.11/site-packages/ && \
+    cp run-pipeline3 run-warrior3 /usr/local/bin/
 
-# Clone projects
+# Clone warrior projects
 RUN git clone https://github.com/ArchiveTeam/warrior-code2.git projects && \
     chown -R warrior:warrior projects
 
@@ -50,7 +51,7 @@ RUN git clone https://github.com/ArchiveTeam/wget-lua.git && \
     cd .. && \
     rm -rf wget-lua
 
-# Copy scripts (must be in repo root)
+# Copy supporting scripts (must be in repo root)
 COPY warrior.sh /home/warrior/
 COPY start.py /home/warrior/
 COPY env-to-json.sh /home/warrior/
