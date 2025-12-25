@@ -1,13 +1,13 @@
 # ArchiveTeam Warrior on Railway
 
-This repository deploys a fully functional **ArchiveTeam Warrior** instance on [https://railway.app](https://railway.com?referralCode=3m2LtM) using the official pre-built Docker image.
+This repository deploys a fully functional **ArchiveTeam Warrior** instance on [https://railway.app](https://railway.com/deploy/archiveteam-warrior?referralCode=decoge) using the official pre-built Docker image.
 
 The Warrior helps preserve websites and online content by participating in ArchiveTeam's distributed archiving projects.
 
 ## Deployment
-[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/archiveteam-warrior?referralCode=3m2LtM&utm_medium=integration&utm_source=template&utm_campaign=generic)
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/archiveteam-warrior?referralCode=decoge&utm_medium=integration&utm_source=template&utm_campaign=generic)
 
-Deploy on Railway with this [Template](https://railway.com/deploy/archiveteam-warrior?referralCode=3m2LtM&utm_medium=integration&utm_source=template&utm_campaign=generic)
+Deploy on Railway with this [Template](https://railway.com/deploy/archiveteam-warrior?referralCode=decoge&utm_medium=integration&utm_source=template&utm_campaign=generic)
 
 ## Configuration (Environment Variables)
 
